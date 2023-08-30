@@ -3,12 +3,20 @@ import { useRouter } from "vue-router"
 import { ref } from "vue";
 import { Icon } from "@iconify/vue"
 import getImage from "../lib/getImage"
+
+
 const router = useRouter()
+// movies/76600 
+// params -> se posle movies/
 const movieId = router.currentRoute.value.params.id
+// console.log(movieId)
 const movie = ref(null)
 
-movie.value = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US`).then(res => res.json())
+movie.value = await fetch
+(`https://api.themoviedb.org/3/movie/${movieId}?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US`).
+then(res => res.json())
 
+// console.log(movie)
 const {
     title,
     overview,
@@ -19,7 +27,6 @@ const {
     popularity,
     runtime
 } = movie.value
-const country = movie.value.production_countries[0].iso_3166_1
 const movieDuration = Math.round(runtime / 60)
 
 </script>
@@ -27,11 +34,8 @@ const movieDuration = Math.round(runtime / 60)
 <template>
     <div
     class="h-screen w-screen grayscale-0"
-    :style="{
-        backgroundImage: 'url('+getImage(background)+')'
-    }"
     >
-        <div class="w-full h-full bg-gradient-to-r from-black to-transparent">
+        <div class="w-full h-full ">
             <div class="pt-20 w-full h-full grid grid-cols-2 items-center">
                 <img
                 class="w-[400px] mx-auto rounded-lg"
@@ -57,14 +61,7 @@ const movieDuration = Math.round(runtime / 60)
                             <Icon icon="ic:twotone-access-time-filled" color="white" />
                             <span>{{ movieDuration }}h / {{ runtime }} minutes</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <img
-                            class="w-8"
-                            :src="`https://countryflagsapi.com/png/${country.toLowerCase()}`"
-                            crossorigin="anonymous"
-                            />
-                            <span>{{ country }}</span>
-                        </div>
+                        
                         
                     </div>
                 </div>

@@ -4,6 +4,6 @@
 
 html {
     @apply text-white;
-    @apply bg-neutral-900;
+    @apply bg-neutral-950;
     @apply overflow-x-hidden;
 }

@@ -1,35 +1,40 @@
 <script setup>
 import { ref, onBeforeMount, defineAsyncComponent } from "vue"
-import MovieList from "../components/MovieList.vue";
-const movies = ref([])
+
+// ref -> if variable changes, html is rerendered
+const bannerMovieResult = ref([])
 const bannerMovie = ref(null)
 
+// async component so we can pass bannermovie as a prop
 const AsyncBanner = defineAsyncComponent(() => {
   return import("../components/Banner.vue")
 })
 
-const getMovies = async () => {
-  movies.value = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US")
+const getMovieBanner = async () => {
+      // otkako ke se fetchira se togas ke gi zememe filmovite zatoa prvo cekame so await
+ 
+  bannerMovieResult.value = await fetch("https://api.themoviedb.org/3/search/movie?api_key=c55957c0a5d4a32160fa6b032a436368&query=oppenheimer")
   .then(res => res.json())
   .then(res => res.results)
+
 }
 
-function getRandomInt (min, max)  {
-  return Math.floor(Math.random() * (max - min) + min)
-}     
+ 
 
 onBeforeMount(async() => {
-  await getMovies() 
-  bannerMovie.value = movies.value[getRandomInt(0, movies.value.length - 1)]
+  await getMovieBanner() 
+  //  console.log(bannerMovieResult.value[0])
+  bannerMovie.value = bannerMovieResult.value[0]
+  
 })
 
 </script>
 
 <template>
+   <!-- passing banner as a prop with :bannner="bannerMovie"-->
+
     <AsyncBanner 
     :banner="bannerMovie"
     />
-    <MovieList 
-    :movies="movies"
-    />
+   
 </template>
