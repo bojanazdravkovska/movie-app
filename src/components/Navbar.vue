@@ -16,9 +16,9 @@ import { RouterLink } from 'vue-router';
             <li>
                 <div class="flex items-center gap-1 hover:text-orange-600 no-underline hover:underline ">
                     <!-- <RouterLink :to="{ name: 'search' }">  -->
-                    <RouterLink :to="'/search'"> 
-                    <span>Search</span>
-                    <Icon icon="ri:search-line" />
+                    <RouterLink :to="'/search'">
+                        <span>Search</span>
+                        <Icon icon="ri:search-line" />
                     </RouterLink>
 
 
@@ -27,7 +27,10 @@ import { RouterLink } from 'vue-router';
             <RouterLink :to="`/popular`">
                 <li class="hover:text-orange-600 no-underline hover:underline ">Popular Movies</li>
             </RouterLink>
-            <li class="hover:text-orange-600 no-underline hover:underline " style="padding-right: 40px;">Recommandation</li>
+            <RouterLink :to="`/recommendations`">
+                <li class="hover:text-orange-600 no-underline hover:underline " style="padding-right: 40px;">Recommandation
+                </li>
+            </RouterLink>
         </ul>
     </nav>
 </template>

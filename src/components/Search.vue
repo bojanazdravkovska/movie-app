@@ -46,14 +46,6 @@ export default {
      
 
 
-
-
-
-
-
-
-
-
 <template>
     <div class="text-center">
         <h1 class="text-3xl font-semibold my-2">Search results for: "{{ query }}"</h1>
@@ -69,8 +61,8 @@ export default {
     <button @click="searchMovies" class=" ml-64 flex items-center gap-1 px-6 py-4 rounded-md bg-orange-700 w-fit mt-4 transition hover:bg-neutral-800 font-semibold">Search</button>
      -->
 
-        <div class="flex items-center justify-end space-x-4 mr-20 mt-4"> <!-- Add this container div with flex classes -->
-            <input type="text" class="text-red-600" v-model="query" @input="searchMovies"
+        <div class="flex items-center justify-end space-x-4 mr-20 mt-4"> 
+            <input type="text" class="text-red-600 rounded-md" v-model="query" @input="searchMovies"
                 placeholder="Search for a movie" />
             <button @click="searchMovies"
                 class="px-6 py-4 rounded-md bg-orange-700 w-fit transition hover:bg-neutral-800 font-semibold">
