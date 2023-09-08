@@ -1,7 +1,6 @@
 <script setup>
 import { useRouter } from "vue-router"
-import { ref, onMounted } from "vue";
-import { computed } from "vue";
+import { ref, onMounted, computed, inject } from "vue";
 import { Icon } from "@iconify/vue"
 import getImage from "../lib/getImage"
 
@@ -39,7 +38,9 @@ const {
 } = movie.value
 const movieDuration = Math.round(runtime / 60)
 
-const rating = ref(0); //initialize the rating  
+//const rating = ref(0); //initialize the rating  
+
+const rating = inject('sharedState').rating;
 
 const rateMovie = (stars) => {
     rating.value = stars; //update the stars
