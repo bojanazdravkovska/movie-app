@@ -33,11 +33,9 @@ export default {
             }
         },
         getMoviePosterUrl(posterPath) {
-            // Check if posterPath is available, and if so, construct the full URL
             if (posterPath) {
                 return `https://image.tmdb.org/t/p/w500/${posterPath}`;
             }
-            // If no posterPath is available, you can display a placeholder image or handle it as needed
             return '/path/to/placeholder-image.jpg';
         },
     },

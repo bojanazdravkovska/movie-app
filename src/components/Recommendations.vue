@@ -11,8 +11,6 @@ export default {
     },
     methods: {
         async searchMovie() {
-            // Make an API request to search for movies based on searchQuery
-            // Replace 'YOUR_API_KEY' with your actual TMDb API key
             const apiKey = 'c55957c0a5d4a32160fa6b032a436368';
             const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
                 params: {
@@ -23,8 +21,6 @@ export default {
             this.searchResults = response.data.results;
         },
         async getRecommendations(movieId) {
-            // Make an API request to get movie recommendations based on movieId
-            // Replace 'YOUR_API_KEY' with your actual TMDb API key
             const apiKey = 'c55957c0a5d4a32160fa6b032a436368';
             const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/similar`, {
                 params: {
@@ -34,13 +30,17 @@ export default {
                 },
             });
             this.recommendations = response.data.results;
+            const recommendationsSection = document.getElementById('recommendations-section');
+            recommendationsSection.style.display = 'block';
+            recommendationsSection.style.opacity = '1';
+            recommendationsSection.style.height = 'auto';
+
+            recommendationsSection.scrollIntoView({ behavior: 'smooth' });
         },
         getMoviePosterUrl(posterPath) {
-            // Check if posterPath is available, and if so, construct the full URL
             if (posterPath) {
                 return `https://image.tmdb.org/t/p/w500/${posterPath}`;
             }
-            // If no posterPath is available, you can display a placeholder image or handle it as needed
             return '/path/to/placeholder-image.jpg';
         },
     },
@@ -124,16 +124,21 @@ export default {
         <hr class="my-4">
         <br>
         <!-- Display recommendations here -->
-        <div v-if="recommendations.length">
+        <div v-if="recommendations.length" id="recommendations-section"
+            class="hidden opacity-0 h-0 overflow-hidden transition-all duration-300 ease-in-out">
             <h2 class="text-2xl font-semibold my-2 text-center text-orange-600">Recommendations</h2>
             <div
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  grid grid-cols-4 gap-5 mx-20 my-10">
                 <div v-for="movie in recommendations" :key="movie.id" class="rounded-lg shadow-md p-4">
-                    <img :src="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster"
-                        class="w-full h-auto transition rounded-md group-hover:blur-sm cursor-pointer" />
-                    <h1 class="text-xl font-semibold my-2">{{ movie.title }}</h1>
-                    <p class="text-neutral-400 text-sm">{{ movie.overview }}</p>
+                    <RouterLink :to="`/movies/${movie.id}`">
+
+                        <img :src="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster"
+                            class="w-full h-auto transition rounded-md group-hover:blur-sm cursor-pointer" />
+                        <h1 class="text-xl font-semibold my-2">{{ movie.title }}</h1>
+                        <p class="text-neutral-400 text-sm">{{ movie.overview }}</p>
+                    </RouterLink>
                 </div>
             </div>
         </div>
-    </div></template>
+    </div>
+</template>
